@@ -21,7 +21,13 @@ repositories {
 		name = 'Ladysnake Mods'
 		url = 'https://ladysnake.jfrog.io/artifactory/mods'
 	}
-
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+		content {
+			includeGroup "maven.modrinth"
+		}
+	}
 }
 
 dependencies {
@@ -44,6 +50,7 @@ dependencies {
 	// Includes Cardinal Components API as a Jar-in-Jar dependency (optional but recommended)
 	include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:4.1.4"
 
+	modCompileOnly "maven.modrinth:mcxr-core:${project.mcxrcore_version}"
 }
 
 processResources {

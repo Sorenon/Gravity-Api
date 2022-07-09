@@ -27,6 +27,7 @@ public class GravityChangerMod implements ModInitializer {
     public void onInitialize() {
         ModItems.init();
         GravityChannel.initServer();
+        MCXRCompat.init();
 
         AutoConfig.register(GravityChangerConfig.class, GsonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(GravityChangerConfig.class).getConfig();
