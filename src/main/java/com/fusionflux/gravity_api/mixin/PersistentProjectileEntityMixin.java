@@ -1,11 +1,13 @@
 package com.fusionflux.gravity_api.mixin;
 
 
+import com.fusionflux.gravity_api.MCXRCompat;
 import com.fusionflux.gravity_api.api.GravityChangerAPI;
 import com.fusionflux.gravity_api.util.RotationUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.util.math.Direction;
@@ -50,6 +52,8 @@ public abstract class PersistentProjectileEntityMixin extends Entity {
             )
     )
     private static void modifyargs_init_init_0(Args args, EntityType<? extends ThrownEntity> type, LivingEntity owner, World world) {
+        if (owner instanceof PlayerEntity player && MCXRCompat.isPlayerInVR(player)) return;
+
         Direction gravityDirection = GravityChangerAPI.getGravityDirection(owner);
         if(gravityDirection == Direction.DOWN) return;
 
