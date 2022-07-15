@@ -1,5 +1,6 @@
 package com.fusionflux.gravity_api.mixin;
 
+import com.fusionflux.gravity_api.MCXRCompat;
 import com.fusionflux.gravity_api.api.GravityChangerAPI;
 import com.fusionflux.gravity_api.util.RotationUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +21,7 @@ public class ItemMixin {
             )
     )
     private static float redirect_raycast_getYaw(PlayerEntity player){
+        if (MCXRCompat.isPlayerInVR(player)) return player.getYaw();
         Direction direction = GravityChangerAPI.getGravityDirection(player);
         if(direction == Direction.DOWN) return player.getYaw();
         return RotationUtil.rotPlayerToWorld(player.getYaw(), player.getPitch(), direction).x;
@@ -34,6 +36,7 @@ public class ItemMixin {
             )
     )
     private static float redirect_raycast_getPitch(PlayerEntity player){
+        if (MCXRCompat.isPlayerInVR(player)) return player.getPitch();
         Direction direction = GravityChangerAPI.getGravityDirection(player);
         if(direction == Direction.DOWN) return player.getPitch();
         return RotationUtil.rotPlayerToWorld(player.getYaw(), player.getPitch(), direction).y;
